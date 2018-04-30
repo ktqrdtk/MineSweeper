@@ -1,12 +1,14 @@
 //Beginner (8x8, 10 mines), Intermediate (16x16, 40 mines) and Expert (24x24, 99 mines)
 package main;
 
-import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Game 
+public class Game implements ActionListener
 {
 	public static final String TITLE = "Minesweeper";
 	
@@ -22,26 +24,41 @@ public class Game
 	
 	public Game()
 	{
-		setUpScreen();
-		this.size = chooseSize();
-		this.grid = new Location[this.size][this.size];
-		mainPane.add(this.grid);
-		frame.add(mainPane);
+		frame = new JFrame(TITLE);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Thread afterChosenSize = new Thread()
+		{
+			@Override
+			public void run()
+			{
+				setUpScreen();
+				grid = new Location[size][size];
+				mainPane.add(grid);
+				frame.add(mainPane);
+			}
+		};
+		chooseSize(afterChosenSize);
 	}
 	
 	public void setUpScreen()
 	{
-		frame = new JFrame(TITLE);
 		mainPane = new MinePanel();
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.repaint();
 		frame.setVisible(true);
 	}
 	
-	public int chooseSize()
+	public void chooseSize(Thread afterChosen)
 	{
-		return 0;
+		JPanel panel = new JPanel();
+		JButton b1 = new JButton("Beginner");
+		b1.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		
 	}
 }
