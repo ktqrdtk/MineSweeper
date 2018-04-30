@@ -6,12 +6,14 @@ public class Location
 	private boolean bomb;
 	private Location[] surroundings;
 	private Coordinate absolutePos;
+	private Game game;
 	
-	public Location(boolean bomb, Coordinate absolutePos)
+	public Location(boolean bomb, Coordinate absolutePos, Game game)
 	{
 		this.bomb = bomb;
 		surroundings = new Location[8];
 		this.absolutePos = absolutePos;
+		this.game = game;
 	}
 	
 	public void update()
@@ -65,6 +67,8 @@ public class Location
 	
 	public Location getLocationAt(int input)
 	{
-		
+		Coordinate coord = getLocationCoordinate(input);
+		coord.setCoordinate(coord.x + this.absolutePos.x, coord.y + this.absolutePos.y);
+		return game.grid[coord.y][coord.x];
 	}
 }
