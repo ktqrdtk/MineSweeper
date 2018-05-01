@@ -71,4 +71,9 @@ public class Location
 		coord.setCoordinate(coord.x + this.absolutePos.x, coord.y + this.absolutePos.y);
 		return game.grid[coord.y][coord.x];
 	}
+	
+	public void setBomb(boolean input)
+	{
+		this.bomb = input;
+	}
 }
