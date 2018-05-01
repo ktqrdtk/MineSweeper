@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 public class Coordinate 
 {
 	public int x;
@@ -46,5 +48,14 @@ public class Coordinate
 	public int getY()
 	{
 		return this.y;
+	}
+	
+	public static Coordinate getRandomCoordinate(int xLimiter, int yLimiter)
+	{
+		Coordinate returnCoord = new Coordinate();
+		Random random = new Random();
+		returnCoord.x = random.nextInt(xLimiter);
+		returnCoord.y = random.nextInt(yLimiter);
+		return returnCoord;
 	}
 }

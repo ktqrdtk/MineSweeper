@@ -76,4 +76,9 @@ public class Location
 	{
 		this.bomb = input;
 	}
+	
+	public boolean hasBomb()
+	{
+		return this.bomb;
+	}
 }

@@ -1,7 +1,29 @@
 package main;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 public class Helper 
 {
+	public static ImageIcon mineIcon, flagIcon, defaultIcon;
+	public static Image mineImage, flagImage, defaultImage;
+	
+	public static void loadImages()
+	{
+		try 
+		{
+			mineImage = ImageIO.read(new File("images/mine.jpg"));
+		} 
+		catch (IOException e) {}
+		mineIcon = new ImageIcon(mineImage);
+		//flagIcon = new ImageIcon();
+		//defaultIcon = new ImageIcon();
+	}
+	
 	public static boolean isArray(Object input)
 	{
 		if(input != null)

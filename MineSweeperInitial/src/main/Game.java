@@ -3,6 +3,8 @@ package main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -34,18 +36,27 @@ public class Game implements ActionListener
 		frame = new JFrame(TITLE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getRootPane().addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                // This is only called when the user releases the mouse button.
+            	
+            	//potential location for code for resizing window
+            	
+                //System.out.println("componentResized");
+            }
+        });
 		chooseSize();
 	}
 	
 	public void setUpScreen()
 	{
-		this.numOfBombs = sizeToBombs(this.size);
+		this.numOfBombs = sizeToBombs(sizeCorrect(this.size));
 		frame.remove(buttonPanel);
-		mainPanel = new MinePanel();
-		grid = new Location[sizeCorrect(size)][sizeCorrect(size)];
-		double percentOfBomb = (sizeToBombs(this.size) / (Math.pow(sizeCorrect(this.size), 2))) * 100;
+		loadImages();
+		mainPanel = new MinePanel(this.size);
+		grid = new Location[sizeCorrect(this.size)][sizeCorrect(this.size)];
+		double percentOfBomb = (sizeToBombs(sizeCorrect(this.size)) / (Math.pow(sizeCorrect(this.size), 2))) * 100;
 		Random random = new Random();
-		
 		for(int i = 0; i < grid.length; i++)
 		{
 			for(int j = 0; j < grid[i].length; j++)
@@ -57,13 +68,25 @@ public class Game implements ActionListener
 					if(randomNum < percentOfBomb)
 					{
 						grid[i][j].setBomb(true);
+						numOfBombs--;
 					}
 				}
 			}
 		}
-		
+		while(numOfBombs > 0)
+		{
+			Coordinate randomCoord = Coordinate.getRandomCoordinate(grid.length, grid[0].length);
+			Location randomLocation = grid[randomCoord.x][randomCoord.y];
+			if(!randomLocation.hasBomb())
+			{
+				randomLocation.setBomb(true);
+				numOfBombs--;
+			}
+		}
 		mainPanel.addMineArray(grid);
 		frame.add(mainPanel);
+		frame.validate();
+		frame.repaint();
 	}
 	
 	public void chooseSize()
@@ -83,6 +106,7 @@ public class Game implements ActionListener
 			JButton curButton = new JButton();
 			curButton.setEnabled(true);
 			curButton.setActionCommand("choosesize" + Integer.toString(i));
+			curButton.addActionListener(this);
 			curButton.setText(arg[i]);
 			curButton.setVisible(true);
 			buttonPanel.add(curButton);
@@ -114,6 +138,5 @@ public class Game implements ActionListener
 			afterChosenSize.start();
 			hasntRunSize = false;
 		}
-		
 	}
 }
