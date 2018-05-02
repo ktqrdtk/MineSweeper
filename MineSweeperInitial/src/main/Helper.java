@@ -54,14 +54,21 @@ public class Helper
 		updateImages(defaultImageWidth, defaultImageHeight);
 	}
 	
-	public static void updateImages(int _1, int _2)
+	public static void updateImages(double _1, double _2)
 	{
+		int new_1 = smartCast(_1);
+		int new_2 = smartCast(_2);
 		for(int i = 0; i < iconArray.length; i++)
 		{
-			iconArray[i].setImage(scaleImageIcon(iconArray[i], _1, _2));
+			iconArray[i].setImage(scaleImageIcon(iconArray[i], new_1, new_2));
 		}
 	}
 	
+	private static int smartCast(double input) 
+	{
+		return (int)(input + .5);
+	}
+
 	public static Image scaleImageIcon(ImageIcon input, int _1, int _2)
 	{
 		Image returnValue = input.getImage().getScaledInstance(_1, _2, java.awt.Image.SCALE_SMOOTH);

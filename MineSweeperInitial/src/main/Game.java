@@ -1,6 +1,7 @@
 //Beginner (8x8, 10 mines), Intermediate (16x16, 40 mines) and Expert (24x24, 99 mines)
 package main;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -36,15 +37,6 @@ public class Game implements ActionListener
 		frame = new JFrame(TITLE);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getRootPane().addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                // This is only called when the user releases the mouse button.
-            	
-            	//potential location for code for resizing window
-            	
-                //System.out.println("componentResized");
-            }
-        });
 		chooseSize();
 	}
 	
@@ -97,6 +89,26 @@ public class Game implements ActionListener
 			public void run()
 			{
 				setUpScreen();
+				ComponentAdapter compAdpt = new ComponentAdapter() {
+		            public void componentResized(ComponentEvent e) 
+		            {
+		            	System.out.println("ID: " + e.getID());
+		            	try
+		            	{
+		            		frame.setPreferredSize(new Dimension(frame.getBounds().height, frame.getBounds().height));
+		            		frame.setSize(frame.getPreferredSize());
+		            		updateImages((frame.getPreferredSize().getWidth() / sizeCorrect(size)), (frame.getPreferredSize().getHeight() / sizeCorrect(size)));
+		            		frame.revalidate();
+		            		frame.repaint();
+		            	}
+		            	catch(Exception ex) 
+		            	{
+		            		ex.printStackTrace();
+		            	}
+		            }
+		        };
+				frame.getRootPane().addComponentListener(compAdpt);
+				compAdpt.componentResized(new ComponentEvent(frame.getRootPane() ,101));
 			}
 		};
 		buttonPanel = new JPanel();
