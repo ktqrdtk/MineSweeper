@@ -92,9 +92,10 @@ public class Game implements ActionListener
 				ComponentAdapter compAdpt = new ComponentAdapter() {
 		            public void componentResized(ComponentEvent e) 
 		            {
-		            	System.out.println("ID: " + e.getID());
 		            	try
 		            	{
+		            		//todo, make it so that this code doesnt run like 800000 times each time i need it to.
+		            		//also it makes the picture quality worse do to not using the original image when it scales. so fix that too.
 		            		frame.setPreferredSize(new Dimension(frame.getBounds().height, frame.getBounds().height));
 		            		frame.setSize(frame.getPreferredSize());
 		            		updateImages((frame.getPreferredSize().getWidth() / sizeCorrect(size)), (frame.getPreferredSize().getHeight() / sizeCorrect(size)));
