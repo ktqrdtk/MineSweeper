@@ -9,8 +9,9 @@ import javax.swing.ImageIcon;
 
 public class Helper 
 {
-	public static ImageIcon mineIcon, flagIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8;
-	public static ImageIcon[] iconArray;
+	public static ImageIcon mineIcon, flagIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, mineIconOriginal, flagIconOriginal, defaultIconOriginal, 
+	icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, icon6Original, icon7Original, icon8Original;
+	public static ImageIcon[] iconArrayOriginal, iconArray;
 	public static Image mineImage, flagImage, defaultImage, image1, image2, image3, image4, image5, image6, image7, image8;
 	public static int imageWidth;
 	public static int imageHeight;
@@ -38,6 +39,17 @@ public class Helper
 		{
 			System.out.println("Can't read images");
 		}
+		mineIconOriginal = new ImageIcon(mineImage);
+		flagIconOriginal = new ImageIcon(flagImage);
+		defaultIconOriginal = new ImageIcon(defaultImage);
+		icon1Original = new ImageIcon(image1);
+		icon2Original = new ImageIcon(image2);
+		icon3Original = new ImageIcon(image3);
+		icon4Original = new ImageIcon(image4);
+		icon5Original = new ImageIcon(image5);
+		icon6Original = new ImageIcon(image6);
+		icon7Original = new ImageIcon(image7);
+		icon8Original = new ImageIcon(image8);
 		mineIcon = new ImageIcon(mineImage);
 		flagIcon = new ImageIcon(flagImage);
 		defaultIcon = new ImageIcon(defaultImage);
@@ -49,7 +61,10 @@ public class Helper
 		icon6 = new ImageIcon(image6);
 		icon7 = new ImageIcon(image7);
 		icon8 = new ImageIcon(image8);
+		ImageIcon[] tempArrayOriginal = {mineIconOriginal, flagIconOriginal, defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, 
+		icon6Original, icon7Original, icon8Original};
 		ImageIcon[] tempArray = {mineIcon, flagIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8};
+		iconArrayOriginal = tempArrayOriginal;
 		iconArray = tempArray;
 		updateImages(defaultImageWidth, defaultImageHeight);
 	}
@@ -58,9 +73,9 @@ public class Helper
 	{
 		int new_1 = smartCast(_1);
 		int new_2 = smartCast(_2);
-		for(int i = 0; i < iconArray.length; i++)
+		for(int i = 0; i < iconArrayOriginal.length; i++)
 		{
-			iconArray[i].setImage(scaleImageIcon(iconArray[i], new_1, new_2));
+			iconArray[i].setImage(scaleImageIcon(iconArrayOriginal[i], new_1, new_2));
 		}
 	}
 	

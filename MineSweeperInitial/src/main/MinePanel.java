@@ -1,13 +1,14 @@
 package main;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import static main.Helper.*;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MinePanel extends JPanel
+public class MinePanel extends JPanel implements ActionListener
 {	
 	
 	public JButton[][] grid;
@@ -28,10 +29,9 @@ public class MinePanel extends JPanel
 			for(int j = 0; j < array[i].length; j++)
 			{
 				grid[i][j] = new JButton();
-				if(array[i][j].hasBomb())
-				{
-					grid[i][j].setIcon(mineIcon);
-				}
+				grid[i][j].setIcon(defaultIcon);
+				grid[i][j].setActionCommand("asdf");
+				grid[i][j].addActionListener(this);
 				this.add(grid[i][j]);
 			}
 		}
@@ -43,16 +43,17 @@ public class MinePanel extends JPanel
 		{
 			for(int j = 0; j < array[i].length; j++)
 			{
-				if(array[i][j].hasBomb())
-				{
-					grid[i][j].setIcon(mineIcon);
-				}
+				
 			}
 		}
 	}
 	
-	public void setAllVisible(boolean input)
+	public void actionPerformed(ActionEvent e)
 	{
-		
+		String command = e.getActionCommand();
+		if(command.equals("asdf"))
+		{
+			System.out.println(e.getSource());
+		}
 	}
 }

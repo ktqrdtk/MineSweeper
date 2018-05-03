@@ -7,6 +7,7 @@ public class Location
 	private Location[] surroundings;
 	private Coordinate absolutePos;
 	private Game game;
+	public boolean beenClicked;
 	
 	public Location(boolean bomb, Coordinate absolutePos, Game game)
 	{
@@ -14,6 +15,7 @@ public class Location
 		surroundings = new Location[8];
 		this.absolutePos = absolutePos;
 		this.game = game;
+		this.beenClicked = false;
 	}
 	
 	public void update()

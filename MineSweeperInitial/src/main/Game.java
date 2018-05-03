@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -90,6 +92,10 @@ public class Game implements ActionListener
 			{
 				setUpScreen();
 				ComponentAdapter compAdpt = new ComponentAdapter() {
+					
+					private boolean runOnce = false;
+					public Timer timer = new Timer();
+					
 		            public void componentResized(ComponentEvent e) 
 		            {
 		            	try
