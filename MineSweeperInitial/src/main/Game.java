@@ -47,7 +47,7 @@ public class Game implements ActionListener
 		this.numOfBombs = sizeToBombs(sizeCorrect(this.size));
 		frame.remove(buttonPanel);
 		loadImages();
-		mainPanel = new MinePanel(this.size);
+		mainPanel = new MinePanel(this);
 		grid = new Location[sizeCorrect(this.size)][sizeCorrect(this.size)];
 		double percentOfBomb = (sizeToBombs(sizeCorrect(this.size)) / (Math.pow(sizeCorrect(this.size), 2))) * 100;
 		Random random = new Random();
@@ -157,5 +157,10 @@ public class Game implements ActionListener
 			afterChosenSize.start();
 			hasntRunSize = false;
 		}
+	}
+	
+	public void lose()
+	{
+		System.exit(0);
 	}
 }
