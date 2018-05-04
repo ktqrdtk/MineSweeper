@@ -22,7 +22,6 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 	private int size;
 	private Game game;
 	private boolean rightClick;
-	Timer timer;
 	
 	public MinePanel(Game game)
 	{
@@ -32,7 +31,6 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 		grid = new MyJButton[sizeCorrect(size)][sizeCorrect(size)];
 		this.setLayout(new GridLayout(sizeCorrect(size), sizeCorrect(size)));
 		rightClick = false;
-		this.timer = new Timer();
 	}
 	
 	public void addMineArray(Location[][] array)
@@ -44,6 +42,10 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 			{
 				grid[i][j] = new MyJButton(new Coordinate(j, i));
 				grid[i][j].setIcon(defaultIcon);
+				if(array[i][j].hasBomb())
+				{
+					grid[i][j].setIcon(mineIcon);
+				}
 				grid[i][j].setActionCommand("B" + grid[i][j].toString());
 				grid[i][j].addActionListener(this);
 				this.add(grid[i][j]);
@@ -65,6 +67,7 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String command = e.getActionCommand();
+		Timer timer = new Timer();
 		if(command.charAt(0) == 'B')
 		{
 			TimerTask tsk = new TimerTask()
@@ -74,7 +77,6 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 							int x = Integer.parseInt(String.valueOf(command.charAt(1)));
 							int y = Integer.parseInt(String.valueOf(command.charAt(2)));
 							Location curLocation = locations[y][x];
-							
 							if(rightClick)
 							{
 								if(curLocation.hasFlag())
@@ -88,7 +90,7 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 							}
 							else
 							{
-								leftClick(curLocation);
+								leftClick(curLocation, x, y);
 							}
 						}
 					};
@@ -96,15 +98,30 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 		}
 	}
 	
-	public void leftClick(Location input)
+	public void leftClick(Location input, int x, int y)
 	{
+		input.getSurroundings();
 		if(input.hasBomb())
 		{
 			game.lose();
 		}
 		else
 		{
-			
+			grid[y][x].setIcon(intToIcon(input.getNearbyBombs()));
+			if(input.getNearbyBombs() == 0)
+			{
+				for(int i = 0; i < 1; i++)
+				{
+					for(int j = 0; j < 3; j++)
+					{
+						Coordinate curCoord = new Coordinate(input.getAbsolutePos().x + i -1, input.getAbsolutePos().y + j -1);
+						if(!(curCoord.x == input.getAbsolutePos().x && curCoord.y == input.getAbsolutePos().y))
+						{
+							leftClick(locations[curCoord.y][curCoord.x], curCoord.x, curCoord.y);
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -114,6 +131,7 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 		{
 			rightClick = true;
 		}
+		Timer timer = new Timer();
 		timer.schedule(new TimerTask()
 				{
 					public void run()

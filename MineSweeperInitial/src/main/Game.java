@@ -33,6 +33,7 @@ public class Game implements ActionListener
 	private boolean hasntRunSize = true;
 	private JPanel buttonPanel;
 	public int numOfBombs;
+	public static Location emptyLocation;
 	
 	public Game()
 	{
@@ -40,6 +41,7 @@ public class Game implements ActionListener
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		chooseSize();
+		emptyLocation = new Location(false, new Coordinate(-10, -10), this);
 	}
 	
 	public void setUpScreen()

@@ -29,7 +29,7 @@ public class Location
 			for(int i = 0; i < surroundings.length; i++)
 			{
 				surroundings[i] = this.getLocationAt(i);
-				if(surroundings[i].bomb)
+				if(surroundings[i].hasBomb())
 				{
 					nearbyBombs++;
 				}
@@ -49,7 +49,7 @@ public class Location
 		switch(input)
 		{
 		case 0:
-			coords.setCoordinate(0, -1);
+			coords.setCoordinate(-1, -1);
 			break;
 		case 1:
 			coords.setCoordinate(0, -1);
@@ -80,7 +80,14 @@ public class Location
 	{
 		Coordinate coord = getLocationCoordinate(input);
 		coord.setCoordinate(coord.x + this.absolutePos.x, coord.y + this.absolutePos.y);
-		return game.grid[coord.y][coord.x];
+		try
+		{
+			return game.grid[coord.y][coord.x];
+		}
+		catch(IndexOutOfBoundsException ex)
+		{
+			return Game.emptyLocation;
+		}
 	}
 	
 	public void setBomb(boolean input)
@@ -106,5 +113,10 @@ public class Location
 	public int getNearbyBombs()
 	{
 		return this.nearbyBombs;
+	}
+	
+	public Coordinate getAbsolutePos()
+	{
+		return this.absolutePos;
 	}
 }

@@ -13,6 +13,7 @@ public class Helper
 	defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, icon6Original, icon7Original, icon8Original;
 	public static ImageIcon[] iconArrayOriginal, iconArray;
 	public static Image mineImage, flagImage, pressedImage, defaultImage, image1, image2, image3, image4, image5, image6, image7, image8;
+	public static final int numOfIconsBeforeNumbers = 4;
 	public static int imageWidth;
 	public static int imageHeight;
 	public static final int defaultImageWidth = 500;
@@ -64,9 +65,9 @@ public class Helper
 		icon6 = new ImageIcon(image6);
 		icon7 = new ImageIcon(image7);
 		icon8 = new ImageIcon(image8);
-		ImageIcon[] tempArrayOriginal = {mineIconOriginal, flagIconOriginal, pressedIconOriginal, defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, 
+		ImageIcon[] tempArrayOriginal = {mineIconOriginal, flagIconOriginal, defaultIconOriginal, pressedIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, 
 		icon6Original, icon7Original, icon8Original};
-		ImageIcon[] tempArray = {mineIcon, flagIcon, pressedIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8};
+		ImageIcon[] tempArray = {mineIcon, flagIcon, defaultIcon, pressedIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8};
 		iconArrayOriginal = tempArrayOriginal;
 		iconArray = tempArray;
 		updateImages(defaultImageWidth, defaultImageHeight);
@@ -130,6 +131,11 @@ public class Helper
 		}
 		
 		return -1;
+	}
+	
+	public static ImageIcon intToIcon(int input)
+	{
+		return iconArray[input + numOfIconsBeforeNumbers - 1];
 	}
 	
 }
