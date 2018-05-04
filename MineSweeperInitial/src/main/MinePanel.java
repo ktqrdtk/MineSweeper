@@ -2,6 +2,8 @@ package main;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import static main.Helper.*;
 
 import java.awt.GridLayout;
@@ -19,6 +21,8 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 	private Location[][] locations;
 	private int size;
 	private Game game;
+	private boolean rightClick;
+	Timer timer;
 	
 	public MinePanel(Game game)
 	{
@@ -27,6 +31,8 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 		this.size = game.size;
 		grid = new MyJButton[sizeCorrect(size)][sizeCorrect(size)];
 		this.setLayout(new GridLayout(sizeCorrect(size), sizeCorrect(size)));
+		rightClick = false;
+		this.timer = new Timer();
 	}
 	
 	public void addMineArray(Location[][] array)
@@ -59,7 +65,6 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String command = e.getActionCommand();
-		Timer timer = new Timer();
 		if(command.charAt(0) == 'B')
 		{
 			TimerTask tsk = new TimerTask()
@@ -69,19 +74,53 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 							int x = Integer.parseInt(String.valueOf(command.charAt(1)));
 							int y = Integer.parseInt(String.valueOf(command.charAt(2)));
 							Location curLocation = locations[y][x];
-							if(curLocation.hasBomb())
+							
+							if(rightClick)
 							{
-								game.lose();
+								if(curLocation.hasFlag())
+								{
+									curLocation.setFlag(false);
+								}
+								else
+								{
+									curLocation.setFlag(true);
+								}
+							}
+							else
+							{
+								leftClick(curLocation);
 							}
 						}
 					};
 			timer.schedule(tsk, 100);
 		}
 	}
+	
+	public void leftClick(Location input)
+	{
+		if(input.hasBomb())
+		{
+			game.lose();
+		}
+		else
+		{
+			
+		}
+	}
 
 	public void mouseClicked(MouseEvent evnt) 
 	{
-		
+		if(SwingUtilities.isRightMouseButton(evnt))
+		{
+			rightClick = true;
+		}
+		timer.schedule(new TimerTask()
+				{
+					public void run()
+					{
+						rightClick = false;
+					}
+				}, 200);
 	}
 
 	//unused methods

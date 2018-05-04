@@ -9,10 +9,10 @@ import javax.swing.ImageIcon;
 
 public class Helper 
 {
-	public static ImageIcon mineIcon, flagIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, mineIconOriginal, flagIconOriginal, defaultIconOriginal, 
-	icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, icon6Original, icon7Original, icon8Original;
+	public static ImageIcon mineIcon, flagIcon, pressedIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, mineIconOriginal, flagIconOriginal, pressedIconOriginal, 
+	defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, icon6Original, icon7Original, icon8Original;
 	public static ImageIcon[] iconArrayOriginal, iconArray;
-	public static Image mineImage, flagImage, defaultImage, image1, image2, image3, image4, image5, image6, image7, image8;
+	public static Image mineImage, flagImage, pressedImage, defaultImage, image1, image2, image3, image4, image5, image6, image7, image8;
 	public static int imageWidth;
 	public static int imageHeight;
 	public static final int defaultImageWidth = 500;
@@ -24,7 +24,8 @@ public class Helper
 		{
 			mineImage = ImageIO.read(new File("Images/bomb.png"));
 			flagImage = ImageIO.read(new File("Images/flagged.png"));
-			defaultImage = ImageIO.read(new File("Images/0.png"));
+			pressedImage = ImageIO.read(new File("Images/0.png"));
+			defaultImage = ImageIO.read(new File("Images/facingDown.png"));
 			image1 = ImageIO.read(new File("Images/1.png"));
 			image2 = ImageIO.read(new File("Images/2.png"));
 			image3 = ImageIO.read(new File("Images/3.png"));
@@ -41,6 +42,7 @@ public class Helper
 		}
 		mineIconOriginal = new ImageIcon(mineImage);
 		flagIconOriginal = new ImageIcon(flagImage);
+		pressedIconOriginal = new ImageIcon(pressedImage);
 		defaultIconOriginal = new ImageIcon(defaultImage);
 		icon1Original = new ImageIcon(image1);
 		icon2Original = new ImageIcon(image2);
@@ -52,6 +54,7 @@ public class Helper
 		icon8Original = new ImageIcon(image8);
 		mineIcon = new ImageIcon(mineImage);
 		flagIcon = new ImageIcon(flagImage);
+		pressedIcon = new ImageIcon(pressedImage);
 		defaultIcon = new ImageIcon(defaultImage);
 		icon1 = new ImageIcon(image1);
 		icon2 = new ImageIcon(image2);
@@ -61,9 +64,9 @@ public class Helper
 		icon6 = new ImageIcon(image6);
 		icon7 = new ImageIcon(image7);
 		icon8 = new ImageIcon(image8);
-		ImageIcon[] tempArrayOriginal = {mineIconOriginal, flagIconOriginal, defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, 
+		ImageIcon[] tempArrayOriginal = {mineIconOriginal, flagIconOriginal, pressedIconOriginal, defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, 
 		icon6Original, icon7Original, icon8Original};
-		ImageIcon[] tempArray = {mineIcon, flagIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8};
+		ImageIcon[] tempArray = {mineIcon, flagIcon, pressedIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8};
 		iconArrayOriginal = tempArrayOriginal;
 		iconArray = tempArray;
 		updateImages(defaultImageWidth, defaultImageHeight);

@@ -8,6 +8,8 @@ public class Location
 	private Coordinate absolutePos;
 	private Game game;
 	public boolean beenClicked;
+	private boolean flag;
+	private int nearbyBombs;
 	
 	public Location(boolean bomb, Coordinate absolutePos, Game game)
 	{
@@ -16,15 +18,21 @@ public class Location
 		this.absolutePos = absolutePos;
 		this.game = game;
 		this.beenClicked = false;
+		this.flag = false;
 	}
 	
-	public void update()
+	public void getSurroundings()
 	{
+		nearbyBombs = 0;
 		if(!bomb)
 		{
 			for(int i = 0; i < surroundings.length; i++)
 			{
 				surroundings[i] = this.getLocationAt(i);
+				if(surroundings[i].bomb)
+				{
+					nearbyBombs++;
+				}
 			}
 		}
 	}
@@ -34,6 +42,7 @@ public class Location
 	 * 3X4
 	 * 567
 	 */
+	
 	public Coordinate getLocationCoordinate(int input)
 	{
 		Coordinate coords = new Coordinate();
@@ -82,5 +91,20 @@ public class Location
 	public boolean hasBomb()
 	{
 		return this.bomb;
+	}
+	
+	public void setFlag(boolean input)
+	{
+		this.flag = input;
+	}
+	
+	public boolean hasFlag()
+	{
+		return this.flag;
+	}
+	
+	public int getNearbyBombs()
+	{
+		return this.nearbyBombs;
 	}
 }
