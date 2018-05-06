@@ -115,6 +115,7 @@ public class Helper
 			return 24;
 		}
 		
+		System.out.println("Size Error, NOT OK");
 		return -1;
 	}
 	

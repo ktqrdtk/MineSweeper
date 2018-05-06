@@ -58,4 +58,30 @@ public class Coordinate
 		returnCoord.y = random.nextInt(yLimiter);
 		return returnCoord;
 	}
+	
+	public static Coordinate decompString(String input)
+	{
+		String x = "";
+		String y = "";
+		for(int i = 0; i < input.length(); i++)
+		{
+			char curChar = input.charAt(i);
+			if('x' == Character.toLowerCase(curChar))
+			{
+				for(int f = i + 1; !(input.charAt(f) == ' '); f++)
+				{
+					x = x + input.charAt(f);
+				}
+			}
+			
+			if('y' == Character.toLowerCase(curChar))
+			{
+				for(int f = i + 1; !(input.charAt(f) == ' '); f++)
+				{
+					y = y + input.charAt(f);
+				}
+			}
+		}
+		return new Coordinate(Integer.parseInt(x), Integer.parseInt(y));
+	}
 }

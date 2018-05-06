@@ -46,7 +46,7 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 				{
 					grid[i][j].setIcon(mineIcon);
 				}
-				grid[i][j].setActionCommand("B" + grid[i][j].toString());
+				grid[i][j].setActionCommand("B " + grid[i][j].toString());
 				grid[i][j].addActionListener(this);
 				this.add(grid[i][j]);
 			}
@@ -74,8 +74,9 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 					{
 						public void run()
 						{
-							int x = Integer.parseInt(String.valueOf(command.charAt(1)));
-							int y = Integer.parseInt(String.valueOf(command.charAt(2)));
+							Coordinate coord = Coordinate.decompString(command);
+							int x = coord.x;
+							int y = coord.y;
 							Location curLocation = locations[y][x];
 							if(rightClick)
 							{
@@ -101,6 +102,7 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 	public void leftClick(Location input, int x, int y)
 	{
 		input.getSurroundings();
+		input.beenClicked = true;
 		if(input.hasBomb())
 		{
 			game.lose();
@@ -110,17 +112,27 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 			grid[y][x].setIcon(intToIcon(input.getNearbyBombs()));
 			if(input.getNearbyBombs() == 0)
 			{
-				for(int i = 0; i < 1; i++)
+				noBombsClick(input, x, y);
+			}
+		}
+	}
+	
+	public void noBombsClick(Location input, int x, int y)
+	{
+		for(int i = 0; i < 8; i++)
+		{
+			Location curLocation = input.getLocationAt(i);
+			try
+			{
+				if(!curLocation.beenClicked)
 				{
-					for(int j = 0; j < 3; j++)
-					{
-						Coordinate curCoord = new Coordinate(input.getAbsolutePos().x + i -1, input.getAbsolutePos().y + j -1);
-						if(!(curCoord.x == input.getAbsolutePos().x && curCoord.y == input.getAbsolutePos().y))
-						{
-							leftClick(locations[curCoord.y][curCoord.x], curCoord.x, curCoord.y);
-						}
-					}
+					curLocation.getSurroundings();
+					leftClick(curLocation, curLocation.getAbsolutePos().x, curLocation.getAbsolutePos().y);
 				}
+			}
+			catch(IndexOutOfBoundsException ex)
+			{
+				
 			}
 		}
 	}

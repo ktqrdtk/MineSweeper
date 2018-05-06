@@ -24,6 +24,6 @@ public class MyJButton extends JButton
 	
 	public String toString()
 	{
-		return coord.x + "" + coord.y;
+		return "x" + coord.x + " y" + coord.y + " ";
 	}
 }

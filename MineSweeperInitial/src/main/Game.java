@@ -112,6 +112,7 @@ public class Game implements ActionListener
 		            	}
 		            	catch(Exception ex) 
 		            	{
+		            		System.out.println("Resize Error");
 		            		ex.printStackTrace();
 		            	}
 		            }
