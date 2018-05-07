@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MinePanel extends JPanel implements ActionListener, MouseListener
 {	
@@ -188,7 +190,16 @@ public class MinePanel extends JPanel implements ActionListener, MouseListener
 		}
 		if(winnable)
 		{
-			game.win();
+			turnOff();
+			Timer timer = new Timer();
+			TimerTask winTask = new TimerTask()
+					{
+						public void run()
+						{
+							game.win();
+						}
+					};
+			timer.schedule(winTask, 500);
 		}
 	}
 }
