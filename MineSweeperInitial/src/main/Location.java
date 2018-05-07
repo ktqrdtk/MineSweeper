@@ -2,7 +2,6 @@ package main;
 
 public class Location
 {
-	private static final long serialVersionUID = 1L;
 	private boolean bomb;
 	private Location[] surroundings;
 	private Coordinate absolutePos;

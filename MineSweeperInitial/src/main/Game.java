@@ -2,14 +2,12 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,10 +32,22 @@ public class Game implements ActionListener
 	private JPanel buttonPanel;
 	public int numOfBombs;
 	public static Location emptyLocation;
+	public boolean won;
 	
 	public Game()
 	{
-		frame = new JFrame(TITLE);
+		won = false;
+		frame = new JFrame(TITLE)
+				{
+					public void paint(Graphics g)
+					{
+						super.paint(g);
+						if(won)
+						{
+							g.drawImage(sunImage, frame.getWidth() / 2, frame.getHeight() / 2, null);
+						}
+					}
+				};
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		chooseSize();
@@ -94,10 +104,6 @@ public class Game implements ActionListener
 			{
 				setUpScreen();
 				ComponentAdapter compAdpt = new ComponentAdapter() {
-					
-					private boolean runOnce = false;
-					public Timer timer = new Timer();
-					
 		            public void componentResized(ComponentEvent e) 
 		            {
 		            	try
@@ -162,8 +168,15 @@ public class Game implements ActionListener
 		}
 	}
 	
-	public void lose()
+	public void lose(Location input, int x, int y)
 	{
-		System.exit(0);
+		mainPanel.showBombs();
+		mainPanel.turnOff();
+	}
+	
+	public void win()
+	{
+		won = true;
+		frame.repaint();
 	}
 }

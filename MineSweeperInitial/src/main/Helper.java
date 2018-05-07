@@ -12,7 +12,7 @@ public class Helper
 	public static ImageIcon mineIcon, flagIcon, pressedIcon, defaultIcon, icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, mineIconOriginal, flagIconOriginal, pressedIconOriginal, 
 	defaultIconOriginal, icon1Original, icon2Original, icon3Original, icon4Original, icon5Original, icon6Original, icon7Original, icon8Original;
 	public static ImageIcon[] iconArrayOriginal, iconArray;
-	public static Image mineImage, flagImage, pressedImage, defaultImage, image1, image2, image3, image4, image5, image6, image7, image8;
+	public static Image mineImage, flagImage, pressedImage, defaultImage, image1, image2, image3, image4, image5, image6, image7, image8, sunImage;
 	public static final int numOfIconsBeforeNumbers = 4;
 	public static int imageWidth;
 	public static int imageHeight;
@@ -35,6 +35,7 @@ public class Helper
 			image6 = ImageIO.read(new File("Images/6.png"));
 			image7 = ImageIO.read(new File("Images/7.png"));
 			image8 = ImageIO.read(new File("Images/8.png"));
+			sunImage = ImageIO.read(new File("Images/sun.png"));
 			
 		} 
 		catch (IOException e) 
